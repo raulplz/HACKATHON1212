@@ -1,0 +1,72 @@
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicLink - App Ciudadano</title>
+    <link rel="stylesheet" href="CIVILINK.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main>
+        <section id="app-ciudadano" class="product-section citizen-app-section">
+            <div class="container">
+                <h2>A. App Ciudadano (La Estrella)</h2>
+                <p class="subtitle">La interfaz pública que convierte a cada habitante en un sensor urbano activo. Reporte instantáneo y trazabilidad completa.</p>
+                
+                <div class="app-interface-layout">
+                    
+                    <div class="app-features">
+                        <h4>Funcionalidades Clave:</h4>
+                        <ul>
+                            <li><strong>Mapa Vivo:</strong> Incidencias en tiempo real con nivel de confianza.</li>
+                            <li><strong>Reporte Instantáneo:</strong> Foto + ubicación automática + Categoría (1-2 taps).</li>
+                            <li><strong>Seguimiento "Paquete":</strong> Trazabilidad granular (recibido → asignado → resuelto).</li>
+                            <li><strong>Alertas Proactivas:</strong> Notificaciones por zona (obras, cortes, peligros).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="app-mockup">
+                        <div class="mobile-frame">
+                            <div class="app-screen" id="appScreen">
+                                
+                                <header class="app-header">
+                                    <span class="location">📍 Mi Ubicación</span>
+                                    <span class="user-icon">👤</span>
+                                </header>
+                                
+                                <div class="map-view">
+                                    
+                                    <div class="incident-marker high" data-id="1" data-status="Pendiente">🚨</div>
+                                    <div class="incident-marker medium" data-id="2" data-status="En Curso">⚠️</div>
+                                    <div class="incident-marker low" data-id="3" data-status="Resuelto">✅</div>
+                                </div>
+                                
+                                <div class="report-box" id="reportBox">
+                                    <button class="report-button" onclick="startReport()">+</button>
+                                    <p>Toca para **Reportar Incidencia**</p>
+                                </div>
+
+                                <div class="tracking-popup" id="trackingPopup">
+                                    <span class="close-btn" onclick="closeTracking()">×</span>
+                                    <h4>Seguimiento de Incidencia #0045</h4>
+                                    <div class="status-tracker">
+                                        <div class="status-step active" id="step1">Recibido (IA)</div>
+                                        <div class="status-step" id="step2">Asignado (Servicio Público)</div>
+                                        <div class="status-step" id="step3">En Ruta / Ejecución</div>
+                                        <div class="status-step" id="step4">Resuelto</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="civilink.js"></script>
+</body>
+</html>
