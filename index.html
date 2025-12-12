@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivicLink - Demostración de Sistema Completo</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="app-header-unified">
+        <div class="header-content">
+            <h1>CivicLink</h1>
+            <nav class="tabs-nav">
+                <button class="tab-button active" onclick="showTab('citizen-app')">A. Interfaz Ciudadano</button>
+                <button class="tab-button" onclick="showTab('community-layer')">B. Capa de Verificación Colectiva</button>
+                <button class="tab-button" onclick="showTab('municipal-console')">C. Consola Servicios Públicos</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section id="citizen-app" class="app-tab active">
+            <h2>A. Interfaz Ciudadano (La Red de Detección)</h2>
+            <p class="subtitle">La interfaz pública que convierte a cada habitante en un sensor urbano activo. Aquí se genera la señal inicial.</p>
+            
+            <div class="pc-interface-layout">
+                
+                <div class="report-panel card">
+                    <h4>Reporte Instantáneo y Priorización</h4>
+                    
+                    <div class="form-group">
+                        <label for="category">Categoría:</label>
+                        <select id="category">
+                            <option value="Farola Rota">Farola Rota</option>
+                            <option value="Bache Vial">Bache Vial</option>
+                            <option value="Basura / Limpieza">Basura / Limpieza</option>
+                            <option value="Mobiliario Urbano">Mobiliario Urbano</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gravedad:</label>
+                        <div class="severity-options">
+                            <button class="severity-btn" data-severity="Baja">Baja</button>
+                            <button class="severity-btn" data-severity="Media">Media</button>
+                            <button class="severity-btn" data-severity="Alta">Alta</button>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button primary-btn full-width" onclick="submitNewReport()">Enviar Reporte con Gravedad</button>
+
+                    <div class="separator"></div>
+
+                    <h4>Funcionalidades Clave:</h4>
+                    <ul class="clean-list">
+                        <li><strong>Mapa Vivo:</strong> Incidencias en tiempo real con nivel de confianza.</li>
+                        <li><strong>Reporte Instantáneo:</strong> Foto + ubicación automática + Categoría (Gravedad).</li>
+                        <li><strong>Seguimiento "Paquete":</strong> Trazabilidad granular.</li>
+                    </ul>
+                </div>
+
+                <div class="map-tracking-panel">
+                    <div class="map-view-pc card">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            frameborder="0" 
+                            style="border:0; border-radius: var(--border-radius-lg);"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1518.788593466487!2d-3.705600213123519!3d40.41697227488965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42289f6655c4d3%3A0x6a2c22255d6541f!2sPlaza%20Mayor!5e1!3m2!1ses!2ses!4v1703080000000!5m2!1ses!2ses" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div class="tracking-summary card" id="trackingPopup">
+                        <h4>Seguimiento de tu Último Reporte: <span id="trackingId">#000</span></h4>
+                        <div class="status-tracker">
+                            <div class="status-step active" id="step1">Recibido (IA)</div>
+                            <div class="status-step" id="step2">Asignado</div>
+                            <div class="status-step" id="step3">En Ruta</div>
+                            <div class="status-step" id="step4">Resuelto</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <div id="reportModal" class="modal" style="display:none;">
+            <div class="modal-content card">
+                <span class="close-btn" onclick="closeReportModal()">×</span>
+                <h3>Reporte Enviado.</h3>
+            </div>
+        </div>
+
+        <section id="community-layer" class="app-tab">
+            <h2>B. Capa de Verificación Colectiva (Señal Fiable)</h2>
+            <p class="subtitle">El sistema de validación colectiva en tiempo real que transforma el ruido en señal fiable para el Ayuntamiento.</p>
+            
+            <div class="community-layout">
+                <div class="community-card card">
+                    <h4>Validación en Acción:</h4>
+                    <p>Reporte <span id="currentReportId">#0045</span> (Farola Rota) - Creado hace 5 min.</p>
+                    <div class="validation-tools">
+                        <button class="validate-btn primary-btn" onclick="validateIncident(45, 1)">👍 Confirmar Incidencia (+ Confianza)</button>
+                        <button class="validate-btn invalid" onclick="validateIncident(45, -1)">👎 Es Duplicado / Inválido (- Confianza)</button>
+                    </div>
+                </div>
+                <div class="community-card reputation-card card">
+                    <h4>Reputación y Confiabilidad:</h4>
+                    <p>Usuario: CitizenZero</p>
+                    <p>Score de Confiabilidad: <span id="trustScore" class="score-high">92%</span></p>
+                    <p>Insignias: <span class="badge">Verificador Experto</span>, <span class="badge">Detector Rápido</span></p>
+                </div>
+            </div>
+             
+             <div class="heatmap-section card">
+                <h4>Visualización de Equidad Urbana (Heatmap - Prototipo)</h4>
+                <p>Mapa interactivo que muestra la concentración de incidencias activas sin resolver, identificando áreas que requieren atención urgente.</p>
+                
+                <iframe 
+                    id="googleMapIframe"
+                    width="80%" 
+                    height="400" 
+                    frameborder="0" 
+                    style="border:0; margin: 20px auto; border-radius: var(--border-radius-lg);"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1518.788593466487!2d-3.705600213123519!3d40.41697227488965!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd42289f6655c4d3%3A0x6a2c22255d6541f!2sPlaza%20Mayor!5e1!3m2!1ses!2ses!4v1703080000000!5m2!1ses!2ses" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </section>
+
+        <section id="municipal-console" class="app-tab">
+            <h2>C. Consola Servicios Públicos (Inteligencia Operativa)</h2>
+            <p class="subtitle">La bandeja de entrada inteligente que recibe casos deduplicados y priorizados por riesgo, garantizando una acción estratégica.</p>
+            
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <table class="incident-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Categoría</th>
+                            <th>Gravedad</th>
+                            <th>Prioridad (Riesgo)</th>
+                            <th>Confianza (%)</th>
+                            <th>Estado Actual</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="incidentTableBody">
+                        </tbody>
+                </table>
+            </div>
+
+            <div class="console-insights">
+                <h4>KPIs y Eficiencia:</h4>
+                <p>Tiempo Promedio a Primera Respuesta: 15 minutos (vs. 48h tradicional).</p>
+                <p>Tasa de Deduplicación (IA): 35% de ahorro en gestión de casos.</p>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
