@@ -44,7 +44,7 @@ Este proyecto no requiere servidor.
 
 1.  **Clonar el Repositorio:**
     ```bash
-    git clone https://github.com/Raulax54/HACKATHON1212.git
+    git clone https://github.com/raulplz/HACKATHON1212.git
     cd civiclink
     ```
 2.  **Abrir:** Abre el archivo `index.html` directamente en tu navegador (Chrome, Firefox, etc.).
